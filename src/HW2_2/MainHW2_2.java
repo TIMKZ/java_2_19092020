@@ -1,29 +1,37 @@
 package HW2_2;
 public class MainHW2_2 {
+    static int SIZE = 4;
 
-    public static void main(String[] args) throws MyArraySizeException {
+    public static void main(String[] args)  {
 
 //        System.out.println(w.length);//length- длина массива
 //        System.out.println(w[3].length); // сколько элементов в этой строке
-try {
+
 
     String[][] arr = {
             {"01", "02", "03", "04"},
             {"05", "06", "07", "08"},
             {"09", "10", "11", "12"},
-            {"13", "14", "15"},
+            {"13", "14", "15", "16а"},
     };
+    try {
+            System.out.println(sum(arr));
 
-    int count = arr.length;
-    int countLine = arr[0].length + arr[1].length + arr[2].length + arr[3].length;
-    System.out.println("Массив из " + count + " колонок и " + countLine + " элементов");
 
-    if (arr.length > 4 | arr.length < 4);
-    if ((arr[0].length + arr[1].length + arr[2].length + arr[3].length) < 4 | (arr[0].length + arr[1].length + arr[2].length + arr[3].length)> 4) ;
+//    int count = arr.length;
+//    int countLine = arr[0].length + arr[1].length + arr[2].length + arr[3].length;
+//    System.out.println("Массив из " + count + " колонок и " + countLine + " элементов");
+//
+//    if (arr.length > 4 | arr.length < 4);
+//    if ((arr[0].length + arr[1].length + arr[2].length + arr[3].length) < 4 | (arr[0].length + arr[1].length + arr[2].length + arr[3].length)> 4) ;
 
-}catch (MyArraySizeException e){
+        }catch (MyArraySizeException e){
     e.printStackTrace();
-}
+        } catch (MyArrayDataException e){
+        e.printStackTrace();
+        System.out.println(e.getRow() + " "  + e.getCol());
+        System.out.println(arr[e.getRow()][e.getCol()]);
+    }
 
         System.out.println(" продолжение программы");
 // на выполнение данного куска потрачено более 12 часов... обучение точно с нуля?
@@ -34,8 +42,31 @@ try {
 //            System.out.println("массив должен быть 4 на 4");
 //        }
 
+    }
+    static int sum(String[][] arr) throws MyArraySizeException, MyArrayDataException {
+        if (arr.length != SIZE){
+            throw new MyArraySizeException();
+        }
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].length != SIZE){
+                throw new MyArraySizeException();//размер массива не равен SIZE
 
 
+            }
+
+        }
+        int sum = 0;
+        for (int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[i].length; j++) {
+                try{
+                    sum += Integer.parseInt(arr[i][j]);
+                } catch (NumberFormatException e){
+                    throw new MyArrayDataException("format " + i + " " + j, i, j);
+                }
+
+            }
+
+        } return sum;
     }
 
 }
